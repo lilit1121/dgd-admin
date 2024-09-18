@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Nova\Post;
+use App\Nova\LegalDocument;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
@@ -77,5 +79,14 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function register()
     {
         //
+    }
+
+
+    public function resources()
+    {
+        Nova::resources([
+            Post::class,
+            LegalDocument::class,
+        ]);
     }
 }
