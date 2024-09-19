@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('post_content')->nullable();
             $table->string('status')->default('publish');
             $table->string('post_type');
-            $table->string('post_mime_type');
             $table->timestamps();
         });
     }
