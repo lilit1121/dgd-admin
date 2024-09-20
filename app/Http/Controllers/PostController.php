@@ -7,11 +7,29 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function showPosts()
+//    public function showPosts()
+//    {
+//        $posts = Post::where('post_type', 'post')->paginate(33);
+//        return response()->json($posts);
+//    }
+
+
+    public function showPosts(Request $request)
     {
-        $posts = Post::where('post_type', 'post')->paginate(33);
+
+        $search = $request->input('search');
+        $query = Post::where('post_type', 'post');
+
+        if ($search) {
+            $query->where('post_title', 'like', '%' . $search . '%');
+        }
+
+        $posts = $query->paginate(3);
+
+        // Return paginated results as JSON
         return response()->json($posts);
     }
+
 
     public function showPost($id)
     {
