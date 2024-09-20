@@ -24,9 +24,8 @@ class PostController extends Controller
             $query->where('post_title', 'like', '%' . $search . '%');
         }
 
-        $posts = $query->paginate(3);
+        $posts = $query->paginate(33);
 
-        // Return paginated results as JSON
         return response()->json($posts);
     }
 
