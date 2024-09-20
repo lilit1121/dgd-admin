@@ -9,7 +9,7 @@ class PostController extends Controller
 {
     public function showPosts()
     {
-        $posts = Post::where('post_type', 'post')->get();
+        $posts = Post::where('post_type', 'post')->paginate(20);
         return response()->json($posts);
     }
 
