@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
@@ -17,14 +18,21 @@ class Post extends NovaResource
     {
         return [
 
-            Text::make('Title', 'post_title')
-                ->rules('required'),
+            Text::make('Title', function () {
+                return \Illuminate\Support\Str::limit($this->post_title, 50);
+            })->onlyOnIndex(),
+            Text::make('Title', 'post_title')->onlyOnDetail(),
+            Text::make('Title', 'post_title')->onlyOnForms(),
             Textarea::make('Content', 'post_content'),
             Select::make('Status', 'post_status')
                 ->options(['publish' => 'Publish', 'draft' => 'Draft'])
                 ->rules('required'),
             Text::make('Post type', 'post_type')
                 ->rules('required'),
+
+            Date::make('Created At', 'created_at')
+                ->sortable()
+                ->onlyOnIndex(),
         ];
     }
 
